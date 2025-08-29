@@ -1,2 +1,0 @@
-# kulldanji
-gg
