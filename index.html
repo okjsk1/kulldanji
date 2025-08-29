@@ -65,9 +65,15 @@
         .favorites-title { font-size: 20px; font-weight: 700; color: #bfae6b; display: flex; align-items: center; gap: 0.75rem; }
         .trash-area { padding: 0.75rem; border: 2px dashed #e2e2e2; border-radius: 0.5rem; background: #f6f6f6; transition: all 0.3s; }
         .trash-area.drag-over { background: #ffe7e7; border-color: #faa; transform: scale(1.1); }
-        .favorites-container { position: relative; height: 128px; background: #fff; border: 2px dashed #ededed; border-radius: 0.5rem; overflow: hidden; }
+        .favorites-container {
+            position: relative;  height: auto; /* 고정된 높이를 제거하여 그리드 내용에 맞게 늘어나게 함 */
+  /* ... 다른 속성들 ... */
+  display: grid; /* 그리드 레이아웃 적용 */
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* 열 자동 생성 */
+  gap: 15px; /* 아이템 간 간격 설정 */
+}
 
-        .favorite-item { position: absolute; background: #fff; border: 1.5px solid #ededed; border-radius: 0.5rem; padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: move; transition: all 0.2s; min-width: max-content; box-shadow: 0 1px 3px 0 #e3e3e3; }
+        .favorite-item { background: #fff; border: 1.5px solid #ededed; border-radius: 0.5rem; padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: move; transition: all 0.2s; min-width: max-content; box-shadow: 0 1px 3px 0 #e3e3e3; }
         .favorite-item:hover { box-shadow: 0 4px 6px -1px #e3e3e3; }
 
         /* 메인 레이아웃 */
