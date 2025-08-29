@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>꿀단지 - 건축물들의 달콤한 정보 저장소</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <img src="logo.png" alt="꿀단지 로고" class="logo-image">
+            <div class="logo-text">
+                <h1>꿀단지</h1>
+                <p>건축물들의 달콤한 정보 저장소</p>
+            </div>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="#">문의하기</a></li>
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">다운로드</a></li>
+                <li class="settings"><a href="#"><i class="fas fa-cog"></i> 시작페이지 설정</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <aside class="sidebar left-sidebar">
+            <div class="sidebar-block">
+                <i class="fas fa-wrench"></i>
+                <h3>꿀단지 파트너스</h3>
+                <p>건축 도서 &amp; 도구</p>
+            </div>
+            <div class="sidebar-block">
+                <i class="fas fa-tools"></i>
+                <h3>전문 도구</h3>
+                <p>건축 설계 필수템</p>
+            </div>
+        </aside>
+
+        <div class="content-area">
+            <section class="section favorites-section">
+                <div class="section-header">
+                    <h2>내 즐겨찾기</h2>
+                    <div class="action-buttons">
+                        <button class="btn save-btn">저장하기</button>
+                        <i class="fas fa-th-large"></i>
+                        <i class="fas fa-list"></i>
+                    </div>
+                </div>
+                <div class="card-grid">
+                    <div class="card">
+                        <img src="domus.png" alt="Domus logo">
+                        <span>Domus</span>
+                        <i class="fas fa-star favorite-star"></i>
+                    </div>
+                    <div class="card">
+                        <img src="detail-magazine.png" alt="Detail Magazine logo">
+                        <span>Detail Magazine</span>
+                        <i class="fas fa-star favorite-star"></i>
+                    </div>
+                    <div class="card">
+                        <img src="wallpaper.png" alt="Wallpaper logo">
+                        <span>Wallpaper</span>
+                        <i class="fas fa-star favorite-star"></i>
+                    </div>
+                    <div class="card">
+                        <img src="사용인.png" alt="사용인 logo">
+                        <span>사용인</span>
+                        <i class="fas fa-star favorite-star"></i>
+                    </div>
+                    <div class="card">
+                        <img src="건설일보.png" alt="건설일보 logo">
+                        <span>건설일보</span>
+                        <i class="fas fa-star favorite-star"></i>
+                    </div>
+                    <div class="card">
+                        <img src="건축학.png" alt="건축학 logo">
+                        <span>건축학</span>
+                        <i class="fas fa-star favorite-star"></i>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="category-grid-wrapper">
+                <section class="section category-block">
+                    <h2>디자인</h2>
+                    <ul class="list-group">
+                        <li><a href="https://www.archdaily.com" target="_blank">ArchDaily</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.dezeen.com" target="_blank">Dezeen</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.pinterest.co.kr" target="_blank">Pinterest</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.wallpaper.com" target="_blank">Wallpaper</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.domusweb.it" target="_blank">Domus</a><i class="fas fa-star"></i></li>
+                    </ul>
+                    <a href="#" class="more-link">더보기 (+3)</a>
+                </section>
+
+                <section class="section category-block">
+                    <h2>공모전</h2>
+                    <ul class="list-group">
+                        <li><a href="https://www.skku.edu/skku/index.do" target="_blank">성균</a><i class="fas fa-star"></i></li>
+                        <li><a href="#" target="_blank">현대건축</a><i class="fas fa-star"></i></li>
+                        <li><a href="#" target="_blank">초경량 건축</a><i class="fas fa-star"></i></li>
+                        <li><a href="#" target="_blank">소셜 건축</a><i class="fas fa-star"></i></li>
+                    </ul>
+                    <a href="#" class="more-link">더보기 (+2)</a>
+                </section>
+
+                <section class="section category-block">
+                    <h2>재료정보</h2>
+                    <ul class="list-group">
+                        <li><a href="#" target="_blank">사용인</a><i class="fas fa-star"></i></li>
+                        <li><a href="#" target="_blank">건설일보</a><i class="fas fa-star"></i></li>
+                        <li><a href="#" target="_blank">비스크</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.dezeenjobs.com" target="_blank">dezeen jobs</a><i class="fas fa-star"></i></li>
+                    </ul>
+                    <a href="#" class="more-link">더보기 (+2)</a>
+                </section>
+                
+                <section class="section category-block">
+                    <h2>회사정보</h2>
+                    <ul class="list-group">
+                        <li><a href="https://www.fosterandpartners.com" target="_blank">Foster + Partners</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.zaha-hadid.com" target="_blank">Zaha Hadid Architects</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.big.dk" target="_blank">Bjarke Ingels Group</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.mvrdv.nl" target="_blank">MVRDV</a><i class="fas fa-star"></i></li>
+                    </ul>
+                    <a href="#" class="more-link">더보기 (+4)</a>
+                </section>
+
+                <section class="section category-block">
+                    <h2>프로그램</h2>
+                    <ul class="list-group">
+                        <li><a href="https://www.sketchup.com" target="_blank">Sketchup</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.autodesk.com/products/autocad" target="_blank">Autodesk AutoCAD</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.rhino3d.com" target="_blank">Rhino 3D</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.autodesk.com/products/revit" target="_blank">Revit</a><i class="fas fa-star"></i></li>
+                    </ul>
+                    <a href="#" class="more-link">더보기 (+1)</a>
+                </section>
+                
+                <section class="section category-block">
+                    <h2>커뮤니티</h2>
+                    <ul class="list-group">
+                        <li><a href="#" target="_blank">김텐키텐 Dirksen</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://worldarchitecture.org" target="_blank">World Architecture Community</a><i class="fas fa-star"></i></li>
+                        <li><a href="#" target="_blank">30640 Design Workshop</a><i class="fas fa-star"></i></li>
+                    </ul>
+                    <a href="#" class="more-link">더보기 (+1)</a>
+                </section>
+
+                <section class="section category-block">
+                    <h2>지도</h2>
+                    <ul class="list-group">
+                        <li><a href="https://earth.google.com" target="_blank">Google Earth</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://map.kakao.com" target="_blank">가카오맵</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://map.naver.com" target="_blank">네이버맵</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.molit.go.kr" target="_blank">국토교통부</a><i class="fas fa-star"></i></li>
+                    </ul>
+                    <a href="#" class="more-link">더보기 (+2)</a>
+                </section>
+
+                <section class="section category-block">
+                    <h2>기타</h2>
+                    <ul class="list-group">
+                        <li><a href="https://www.instagram.com/archdaily" target="_blank">Instagram Architecture</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.ted.com/talks/topics/design" target="_blank">TED Talks Design</a><i class="fas fa-star"></i></li>
+                        <li><a href="https://www.archdaily.com/tag/materials" target="_blank">ArchDaily Materials</a><i class="fas fa-star"></i></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <aside class="sidebar right-sidebar">
+            <div class="sidebar-block">
+                <h3>건축 자료</h3>
+                <p>전문 서적 모음</p>
+            </div>
+            <div class="sidebar-block software-block">
+                <h3>소프트웨어</h3>
+                <p>CAD &amp; 3D 프로그램</p>
+            </div>
+        </aside>
+    </main>
+</body>
+</html>
