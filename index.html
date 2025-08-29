@@ -67,13 +67,6 @@
         .favorite-item { position: absolute; background: white; border: 2px solid #fde68a; border-radius: 0.5rem; padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: move; transition: all 0.2s; min-width: max-content; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); }
         .favorite-item:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
 
-        /* 검색창 */
-        .search-section { background: #fff; border-bottom: 1.5px solid #f3e8c7; padding: 2.1rem 0 1.2rem 0; display: flex; justify-content: center; }
-        .search-container { width: 100%; max-width: 600px; }
-        .search-box { display: flex; align-items: center; background: #fffbe7; border: 2px solid #ffe69a; border-radius: 100px; padding: 0.8rem 1.2rem; box-shadow: 0 2px 8px 0 #ffe7b126; }
-        .search-input { flex: 1; border: none; background: transparent; outline: none; font-size: 1.13rem; color: #886200; padding: 0 0.3rem; }
-        .search-btn { background: #3b82f6; color: #fff; border: none; padding: 0.5rem 1.15rem; border-radius: 999px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-left: 0.2rem; box-shadow: 0 1px 3px 0 #b5d3ff2a; transition: background .18s; }
-        .search-btn:hover { background: #2563eb; }
 
         /* 메인 레이아웃 */
         .main-layout { display: flex; gap: 2rem; max-width: 1400px; margin: 0 auto; padding: 2.5rem 2rem 0 2rem; }
@@ -197,17 +190,6 @@
             <div class="trash-area" id="trash-area">🗑️</div>
         </div>
         <div class="favorites-container" id="favorites-container"></div>
-    </div>
-
-    <!-- 검색창 -->
-    <div class="search-section">
-        <div class="search-container">
-            <div class="search-box">
-                🔍
-                <input id="search-input" type="text" class="search-input" placeholder="Google에서 검색하기...">
-                <button class="search-btn" onclick="handleSearch()">검색</button>
-            </div>
-        </div>
     </div>
 
     <!-- 메인 레이아웃 -->
