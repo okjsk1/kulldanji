@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>SFU - So For You</title>
+    <title>SFU - Sites For You</title>
+
+    <!-- 아이콘 폰트 (선택) -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <style>
         :root {
             --main-yellow: #fbbf24;
@@ -18,7 +23,6 @@
             --main-dark: #47340a;
             --sub-text: #aaaaaa;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -27,7 +31,6 @@
             min-height: 100vh;
             color: var(--main-dark);
         }
-
         /* 헤더 */
         .header {
             background: var(--header-gradient);
@@ -38,77 +41,72 @@
         }
         .header-container {
             max-width: 1800px; margin: 0 auto;
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex; align-items: center; justify-content: flex-start;
             padding: 1.1rem 2rem .9rem 2rem;
+            gap: 2rem;
         }
         .header-left { display: flex; align-items: center; gap: 1.2rem; }
-        .logo { font-size: 2.7rem; filter: drop-shadow(0 2px 3px #f9f9f9); }
+        .header-center { display:flex; align-items:center; gap:.6rem; }
+        .logo { font-size: 2.1rem; filter: drop-shadow(0 2px 3px #f9f9f9); }
         .brand h1 { font-size: 1.65rem; font-weight: 700; color: var(--main-brown); letter-spacing: .01em; }
         .brand p { font-size: 0.96rem; color: var(--sub-text); font-weight: 500; margin-top: 2px; }
-        .header-right { display: flex; align-items: center; gap: 1.2rem; }
-        .btn-ghost { background: transparent; color: #7a5608; border: none; font-weight: 500; padding: 0.48rem 1.1rem; border-radius: .5rem; font-size: 1rem; transition: background 0.18s; display: flex; align-items: center; gap: .2rem; }
+        .header-right { display: flex; align-items: center; gap: 1.2rem; margin-left: auto; }
+        .btn-ghost { background: transparent; color: #7a5608; border: none; font-weight: 500; padding: 0.48rem 1.1rem; border-radius: .5rem; font-size: 1rem; transition: background 0.18s; display: flex; align-items: center; gap: .4rem; cursor:pointer; }
         .btn-ghost:hover { background: #f6f6f6; }
-
-       /* 방문자수 */
+        /* 방문자수 */
         .visitor-count {
             position: fixed; bottom: 1.2rem; right: 1.2rem;
             background: #fff;
             color: #8d8d8d;
             padding: 0.78rem 1.15rem; border-radius: 999px;
             box-shadow: 0 4px 12px -1px #ececec; border: 1.5px solid #f2f2f2;
-            font-size: 1.04rem; font-weight: 600; z-index: 99; display: flex; align-items: center; gap: 0.5rem;
+            font-size: 1.04rem; font-weight: 600; z-index: 90; display: flex; align-items: center; gap: 0.5rem;
         }
-
+        /* 왼쪽 아래 플로팅 문의하기 버튼 */
+        .floating-contact { position: fixed; left: 1.2rem; bottom: 1.2rem; z-index: 95; }
+        .floating-contact .btn-floating { background:#ffb020; color:#fff; border:none; padding:.8rem 1rem; border-radius:12px; box-shadow:0 6px 14px -6px rgba(0,0,0,.25); font-weight:700; cursor:pointer; }
+        .floating-contact .btn-floating:hover { filter:brightness(.95); }
         /* 즐겨찾기 섹션 */
         .favorites-section { padding: 1.5rem; background: #fafafa; border-bottom: 1.5px solid #ededed; box-shadow: none; }
         .favorites-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
         .favorites-title { font-size: 20px; font-weight: 700; color: #bfae6b; display: flex; align-items: center; gap: 0.75rem; }
-        .favorites-container {
-            position: relative;  height: auto; /* 고정된 높이를 제거하여 그리드 내용에 맞게 늘어나게 함 */
-  /* ... 다른 속성들 ... */
-  display: grid; /* 그리드 레이아웃 적용 */
-  grid-template-columns: repeat(10, minmax(5px, 1fr)); /* 열 자동 생성 */
-  margin: 10px; /* 아이템 간 간격 설정 */
-}
-
+        .favorites-container { position: relative; display: grid; grid-template-columns: repeat(10, minmax(120px, 1fr)); gap: .6rem; }
         .favorite-item { background: #fff; border: 1.5px solid #ededed; border-radius: 0.5rem; padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: move; transition: all 0.2s; min-width: max-content; box-shadow: 0 1px 3px 0 #e3e3e3; }
         .favorite-item:hover { box-shadow: 0 4px 6px -1px #e3e3e3; }
-
+        .favorite-remove { margin-left: 0.35rem; }
         /* 메인 레이아웃 */
         .main-layout { display: flex; gap: 2rem; max-width: 1800px; margin: 0 auto; padding: 2.5rem 2rem 0 2rem; }
         .ads-left, .ads-right { width: 112px; padding: 0.75rem; display: flex; flex-direction: column; gap: 1.5rem; }
         .ad-banner { background: #f8f8f8; border: 1.5px dashed #ececec; border-radius: 0.75rem; height: 256px; display: flex; align-items: center; justify-content: center; color: #d1d5db; text-align: center; box-shadow: none; }
         .ad-content { font-size: 12px; font-weight: 500; }
         .ad-icon { font-size: 24px; margin-bottom: 0.5rem; }
-
-       /* 카테고리 그리드 */
+        /* 카테고리 그리드 */
         .categories-grid { flex: 1; display: grid; grid-template-columns: repeat(6, 1fr); gap: 2.1rem 1.5rem; }
         @media (max-width: 1200px) { .categories-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 900px) { .categories-grid { grid-template-columns: repeat(2, 1fr); } .main-layout { gap: 1rem; padding: 1rem 0.5rem 0 0.5rem; } }
         @media (max-width: 600px) { .categories-grid { grid-template-columns: 1fr; } .main-layout { flex-direction: column; } .ads-left, .ads-right { display: none; } }
-
         /* 카테고리 카드 */
         .category-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: var(--card-radius); box-shadow: var(--category-shadow); padding: 0.25rem 1.1rem 1.15rem 1.1rem; display: flex; flex-direction: column; gap: .7rem; transition: box-shadow .2s, border-color .2s; min-width: 0; }
         .category-card:hover { box-shadow: 0 8px 32px 0 #ececec23; border-color: #e6e6e6; }
-
         .category-header { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.3rem; }
         .category-title { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 0.5rem; }
         .category-icon { font-size: 1.2rem; flex-shrink: 0; }
         .category-name { font-size: 1.0rem; font-weight: 600; color: #bfae6b; letter-spacing: 0.01em; }
-
         .category-content { padding: 0.25rem; }
         .website-list { display: flex; flex-direction: column; gap: 0.25rem; }
-
         .website-item {
             display: flex; align-items: flex-start; gap: 0.9rem;
             background: #fff; border-radius: .6rem; padding: 0.25rem 0.4rem 0.33rem 0.5rem;
             font-size: 0.75rem; border: 1.5px solid #ebebeb; transition: border-color .17s, box-shadow .17s;
             overflow: hidden;
+            min-height: 52px;
+            min-width: 0;
+            flex: 1 1 10px;
+            box-sizing: border-box;
         }
-        .website-item:hover { border-color: #dadada; box-shadow: 0 2px 8px 0 #f6f6f6; }
+        .website-item:hover { border-color: #dadada; box-shadow: 0 2px 8px 0 #f6f6f6; z-index: 2; }
         .website-item.expanded { min-height: 60px; }
-        .website-item.collapsed { }
-
+        .website-item.shadow-hover { box-shadow: 0 5px 20px 0 #bfae6b30; border-color: #bfae6b; }
         .website-header { display: flex; align-items: center; gap: 0.75rem; width: 100%; }
         .website-favicon { width: 18px; height: 18px; border-radius: 5px; background: #f7f7f7; object-fit: cover; flex-shrink: 0; border: 1px solid #ededed; margin-top: 4px; }
         .website-content { flex: 1; min-width: 0; }
@@ -127,32 +125,35 @@
             max-width: 100%;
         }
         .website-title:hover { color: #1e40af; text-decoration: underline; }
-        .favorite-btn { margin-left: 0.5rem; background: 0; border: 0; padding: 0.11rem; display: flex; align-items: center; cursor: pointer; }
+        .favorite-btn {
+            margin-left: 0.4rem;
+            margin-right: 0.2rem;
+            background: 0; border: 0; padding: 0.11rem;
+            display: flex; align-items: center; cursor: pointer;
+        }
         .favorite-btn:hover { background: #f5f5f5; border-radius: 0.25rem; }
-
         .star-icon { width: 19px; height: 19px; margin-top: 1px; fill: none; stroke: #bfae6b; transition: fill .2s; }
-        .star-icon.favorited { position : right; fill: #ffe89c; stroke: #e2b400; }
-        .more-btn { width: 100%; background: transparent; border: none; color: #bfae6b; cursor: pointer; padding: 0.75rem; border-radius: 0.5rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 500; }
-        .more-btn:hover { background: #f6f6f6; border-color: #ededed; }
-
+        .star-icon.favorited { fill: #ffe89c; stroke: #e2b400; }
+        .more-btn { width: 100%; background: transparent; border: 1px solid #ededed; color: #bfae6b; cursor: pointer; padding: 0.65rem; border-radius: 0.5rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 600; }
+        .more-btn:hover { background: #f6f6f6; border-color: #dedede; }
         .website-description { font-size: 12px; color: #888888; line-height: 1.5; word-break: break-word; margin-top: 0.5rem; padding-left: 0.25rem; }
-
         /* 아이콘 색상 */
-        .icon-blue { color: #bfae6b; }
-        .icon-yellow { color: #bfae6b; }
-        .icon-green { color: #bfae6b; }
-        .icon-orange { color: #bfae6b; }
-        .icon-purple { color: #bfae6b; }
-        .icon-red { color: #bfae6b; }
-        .icon-indigo { color: #bfae6b; }
-        .icon-teal { color: #bfae6b; }
-        .icon-gray { color: #bfae6b; }
-
-        /* 모달 / 폼 / 애니메이션 등은 동일 - 생략 불필요하게 수정하지 않음 */
-
+        .icon-blue,.icon-yellow,.icon-green,.icon-orange,.icon-purple,.icon-red,.icon-indigo,.icon-teal,.icon-gray { color: #bfae6b; }
+        /* 모달 */
+        .modal { display:none; position: fixed; inset: 0; background: rgba(0,0,0,.38); z-index: 120; align-items: center; justify-content: center; padding: 1rem; }
+        .modal.open { display:flex; }
+        .modal-content { background: #fff; width: min(680px, 96vw); border-radius: 1rem; border: 1px solid #eee; box-shadow: 0 20px 50px rgba(0,0,0,.08); overflow: hidden; }
+        .modal-header { display:flex; align-items:center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom:1px solid #f0f0f0; }
+        .modal-title { font-size: 1.1rem; color:#6a4f0e; }
+        .close { border:0; background:transparent; font-size:1.4rem; line-height:1; cursor:pointer; color:#444; }
+        .form-group { padding: .9rem 1.25rem; }
+        .form-input,.form-textarea { width:100%; border:1px solid #e6e6e6; border-radius:.6rem; padding:.7rem .9rem; font-size:.95rem; outline:none; }
+        .form-input:focus,.form-textarea:focus { border-color:#c5b06a; box-shadow:0 0 0 3px #f2e9c2; }
+        .form-textarea { min-height: 120px; resize: vertical; }
+        .btn-primary { margin: 0 1.25rem 1.25rem; padding:.75rem 1rem; border:0; border-radius:.7rem; background:#c9ad64; color:#fff; font-weight:700; cursor:pointer; }
+        .btn-primary:hover { filter:brightness(.96); }
         /* 푸터 - 시간 */
         .footer { width: 100%; text-align: right; font-size: 0.92rem; color: #bda25e; padding: 0.5rem 1.7rem 0.25rem 0; margin-top: 2.5rem; letter-spacing: 0.01em; }
-
         /* 반응형 */
         @media (max-width: 768px) { .categories-grid { grid-template-columns: repeat(2, 1fr); } .ads-left, .ads-right { display: none; } }
         @media (max-width: 480px) { .categories-grid { grid-template-columns: 1fr; } .header-container { flex-direction: column; gap: 1rem; } .header-left, .header-right { width: 100%; } .header-right { justify-content: center; flex-wrap: wrap; } }
@@ -161,7 +162,6 @@
 <body>
     <header class="header">
         <div class="header-container">
-            <div style="width:60px"></div>
             <div class="header-center">
                 <div class="logo">🐻</div>
                 <div class="brand">
@@ -170,17 +170,36 @@
                 </div>
             </div>
             <div class="header-left">
-                <button class="btn-ghost" onclick="openContactModal()">📞 문의하기</button>
-                <button class="btn-ghost" onclick="toggleDescriptions()">👁️ 커뮤니티</button>
-                <button class="btn-ghost" onclick="setAsHomepage()">🏠 시작페이지로 설정</button>
-                <button class="btn-ghost">💾 저장하기</button>
+                <button class="btn-ghost" id="btnContact">📞 문의하기</button>
+                <button class="btn-ghost" id="btnToggleDesc">👁️ 설명 토글</button>
+                <button class="btn-ghost" id="btnHomepage">🏠 시작페이지로 설정</button>
+                <button class="btn-ghost" id="btnSave">💾 저장하기</button>
+<!-- 로그인 -->
+<div id="login-box" style="margin:1rem 0;">
+  <input id="login-email" type="email" placeholder="이메일" autocomplete="username" style="padding:.5rem; margin-right:.3rem;">
+  <input id="login-pw" type="password" placeholder="비밀번호" autocomplete="current-password" style="padding:.5rem; margin-right:.3rem;">
+  <button onclick="login()" id="login-btn">로그인</button>
+  <button onclick="signup()" id="signup-btn">회원가입</button>
+  <button onclick="logout()" id="logout-btn" style="display:none;">로그아웃</button>
+  <span id="user-email" style="margin-left:1rem; color:#bfae6b; font-weight:500;"></span>
+</div>
             </div>
         </div>
+
     </header>
+
+
+
+
 
     <!-- 방문자 수 -->
     <div class="visitor-count">
-        👥 <span>오늘 방문자: <span id="visitor-count">73</span>명</span>
+        👥 <span>오늘 방문자: <span id="visitor-count">0</span>명</span>
+    </div>
+
+    <!-- 왼쪽 아래 플로팅 문의하기 -->
+    <div class="floating-contact">
+        <button class="btn-floating" id="floatingContactBtn"><i class="fa-solid fa-message"></i> 문의하기</button>
     </div>
 
     <!-- 즐겨찾기 섹션 -->
@@ -210,11 +229,11 @@
     </div>
 
     <!-- 문의하기 모달 -->
-    <div id="contact-modal" class="modal">
+    <div id="contact-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close" onclick="closeContactModal()">&times;</span>
                 <h2 class="modal-title">문의하기</h2>
+                <button class="close" id="contact-close" aria-label="닫기">&times;</button>
             </div>
             <div class="form-group">
                 <input type="text" class="form-input" placeholder="이름" id="contact-name">
@@ -225,58 +244,62 @@
             <div class="form-group">
                 <textarea class="form-textarea" placeholder="문의내용을 입력해주세요" id="contact-message"></textarea>
             </div>
-            <button class="btn-primary" onclick="handleContactSubmit()">📤 문의내용 보내기</button>
+            <button class="btn-primary" id="btnContactSubmit">📤 문의내용 보내기</button>
         </div>
+    </div>
+
+    <footer class="footer" id="footer-time"></footer>
 
     <script>
-        // --- 데이터 (생략하지 않음, 원래 스크립트와 동일) ---
+        // --- 데이터 ---
         const websites = [
-            { id: "1", title: "아키데일리", description: "세계에서 가장 방문자가 많은 건축 웹사이트로, 매일 업데이트되는 건축 프로젝트와 뉴스를 제공합니다", category: "디자인", url: "https://www.archdaily.com" },
-            { id: "2", title: "디즌", description: "건축과 디자인 분야의 최신 트렌드와 혁신적인 프로젝트를 소개하는 영국의 대표적인 디자인 매거진입니다", category: "디자인", url: "https://www.dezeen.com" },
-            { id: "3", title: "월페이퍼", description: "건축, 디자인, 아트, 패션 등을 다루는 글로벌 라이프스타일 매거진입니다", category: "디자인", url: "https://www.wallpaper.com" },
-            { id: "5", title: "도머스", description: "1928년부터 발행되어 온 이탈리아의 권위 있는 건축 및 디자인 매거진입니다", category: "디자인", url: "https://www.domusweb.it" },
-            { id: "4", title: "hahaha", description: "1928년부터 발행되어 온 이탈리아의 권위 있는 건축 및 디자인 매거진입니다", category: "디자인", url: "https://www.naver.com" },
-            { id: "60", title: "핀터레스트", description: "건축과 디자인에 관한 영감을 주는 이미지들을 모아볼 수 있는 소셜 플랫폼입니다", category: "디자인", url: "https://www.pinterest.com" },
-            { id: "65", title: "베한스", description: "크리에이티브 전문가들의 포트폴리오와 작품을 공유하는 플랫폼입니다", category: "디자인", url: "https://www.behance.net" },
-            { id: "71", title: "Archinect", description: "건축 커뮤니티와 채용정보를 제공하는 글로벌 건축 플랫폼입니다", category: "디자인", url: "https://archinect.com" },
-            { id: "7", title: "씽굿", description: "창의적이고 혁신적인 아이디어를 발굴하는 국내 대표 공모전 플랫폼입니다", category: "공모전", url: "https://www.thinkcontest.com" },
-            { id: "61", title: "캠퍼스픽", description: "대학생을 위한 다양한 공모전과 대외활동 정보를 제공하는 플랫폼입니다", category: "공모전", url: "https://www.campuspick.com" },
-            { id: "62", title: "요즘것들", description: "젊은 크리에이터들을 위한 공모전과 프로젝트 정보를 큐레이션하는 사이트입니다", category: "공모전", url: "https://www.yojeumgeotdeul.com" },
-            { id: "63", title: "슥삭", description: "건축 및 디자인 분야의 다양한 공모전 정보를 한눈에 볼 수 있는 플랫폼입니다", category: "공모전", url: "https://www.ssakssak.co.kr" },
-            { id: "64", title: "공모전대전", description: "국내 최대 규모의 공모전 정보 플랫폼입니다", category: "공모전", url: "https://www.contestkorea.com" },
-            { id: "12", title: "기술찾기", description: "건축 및 기술 분야의 전문 채용 정보를 제공하는 플랫폼입니다", category: "채용정보", url: "https://www.tech-find.co.kr" },
-            { id: "13", title: "건축채용", description: "건축사무소와 건축 관련 기업의 채용 정보를 제공하는 전문 사이트입니다", category: "채용정보", url: "https://arch-jobs.co.kr" },
-            { id: "14", title: "건축인턴", description: "건축 관련 인턴십과 신입 채용 정보를 전문적으로 다루는 플랫폼입니다", category: "채용정보", url: "https://arch-intern.com" },
-            { id: "15", title: "건축전문직", description: "고급 건축 전문직과 시니어 포지션 채용 정보를 제공하는 헤드헌팅 사이트입니다", category: "채용정보", url: "https://arch-professional.net" },
-            { id: "66", title: "잡코리아", description: "국내 대표 채용 정보 사이트로 건축 분야 채용 정보도 풍부합니다", category: "채용정보", url: "https://www.jobkorea.co.kr" },
-            { id: "16", title: "Foster + Partners", description: "노먼 포스터가 설립한 세계적인 건축회사로, 혁신적이고 지속가능한 건축 디자인으로 유명합니다", category: "회사정보", url: "https://www.fosterandpartners.com" },
-            { id: "17", title: "Zaha Hadid", description: "자하 하디드가 설립한 건축회사로, 유기적이고 곡선적인 형태의 건축물로 세계적인 명성을 얻었습니다", category: "회사정보", url: "https://www.zaha-hadid.com" },
-            { id: "18", title: "BIG", description: "비야케 잉겔스가 이끄는 덴마크의 건축회사로, 혁신적인 건축을 추구합니다", category: "회사정보", url: "https://big.dk" },
-            { id: "19", title: "MVRDV", description: "네덜란드의 혁신적인 건축 스튜디오로, 창의적이고 지속가능한 도시 건축 솔루션을 제공합니다", category: "회사정보", url: "https://www.mvrdv.nl" },
-            { id: "67", title: "삼성물산", description: "국내 대표 건설회사로 다양한 건축 프로젝트를 수행합니다", category: "회사정보", url: "https://www.samsungcnt.com" },
-            { id: "24", title: "SketchUp", description: "직관적이고 사용하기 쉬운 3D 모델링 소프트웨어로 건축가들에게 인기입니다", category: "프로그램", url: "https://www.sketchup.com" },
-            { id: "25", title: "AutoCAD", description: "건축 설계의 표준 CAD 프로그램으로 전 세계적으로 사용됩니다", category: "프로그램", url: "https://www.autodesk.com/products/autocad" },
-            { id: "26", title: "Rhino 3D", description: "복잡한 3D 형태를 모델링할 수 있는 전문적인 NURBS 기반 3D 소프트웨어입니다", category: "프로그램", url: "https://www.rhino3d.com" },
-            { id: "27", title: "Revit", description: "BIM 기반의 건축 설계 소프트웨어로 협업과 정보 관리에 최적화되어 있습니다", category: "프로그램", url: "https://www.autodesk.com/products/revit" },
-            { id: "68", title: "Lumion", description: "건축 시각화를 위한 3D 렌더링 소프트웨어입니다", category: "프로그램", url: "https://lumion.com" },
-            { id: "29", title: "Architectural Digest", description: "유명 건축가와 디자이너의 작품을 소개하는 세계적인 디자인 매거진의 유튜브 채널입니다", category: "유튜버", url: "https://www.youtube.com/@ArchitecturalDigest" },
-            { id: "30", title: "Kirsten Dirksen", description: "지속가능한 건축과 혁신적인 친환경 기술을 다루는 교육적인 다큐멘터리 채널입니다", category: "유튜버", url: "https://www.youtube.com/@kirstendirksen" },
-            { id: "31", title: "World Architecture", description: "전 세계의 혁신적인 건축 프로젝트와 건축가를 소개하는 글로벌 커뮤니티 채널입니다", category: "유튜버", url: "https://www.youtube.com/@WorldArchitectureCommunity" },
-            { id: "32", title: "건축유튜버", description: "국내 건축 관련 유튜브 채널들을 모아서 볼 수 있는 플랫폼입니다", category: "유튜버", url: "https://www.youtube.com/results?search_query=건축" },
-            { id: "69", title: "30X40 Design Workshop", description: "건축가를 위한 실용적인 디자인 팁과 워크플로우를 제공하는 채널입니다", category: "유튜버", url: "https://www.youtube.com/@30X40DesignWorkshop" },
-            { id: "72", title: "건축Q&A", description: "건축에 관한 질문과 답변을 나누는 커뮤니티 플랫폼입니다", category: "커뮤니티", url: "https://arch-qa.com" },
-            { id: "73", title: "아키토크", description: "건축학도와 건축가들이 모여 소통하는 온라인 커뮤니티입니다", category: "커뮤니티", url: "https://architalk.kr" },
-            { id: "74", title: "건축포럼", description: "건축 전문가들의 토론과 정보 공유를 위한 포럼입니다", category: "커뮤니티", url: "https://arch-forum.net" },
-            { id: "75", title: "디자인리뷰", description: "건축 작품에 대한 리뷰와 비평을 나누는 커뮤니티입니다", category: "커뮤니티", url: "https://design-review.co.kr" },
-            { id: "39", title: "Google Earth", description: "전 세계의 건축물과 도시를 위성 이미지로 탐색할 수 있는 플랫폼입니다", category: "지도", url: "https://earth.google.com" },
-            { id: "76", title: "아키맵", description: "국내외 유명 건축물의 위치와 정보를 지도로 확인할 수 있는 서비스입니다", category: "지도", url: "https://archi-map.com" },
-            { id: "77", title: "건축여행", description: "건축물을 중심으로 한 여행 코스와 정보를 제공하는 플랫폼입니다", category: "지도", url: "https://arch-travel.kr" },
-            { id: "78", title: "도시탐험", description: "도시 건축물과 공간을 탐험할 수 있는 가이드를 제공합니다", category: "지도", url: "https://city-explore.net" },
-            { id: "43", title: "건축클래스", description: "온라인 건축 교육과 강의를 제공하는 학습 플랫폼입니다", category: "기타", url: "https://arch-class.com" },
-            { id: "44", title: "건축뉴스", description: "국내외 건축 관련 최신 뉴스와 트렌드를 제공하는 뉴스 사이트입니다", category: "기타", url: "https://arch-news.kr" },
-            { id: "45", title: "건축갤러리", description: "우수한 건축 작품과 포트폴리오를 전시하는 온라인 갤러리입니다", category: "기타", url: "https://arch-gallery.net" },
-            { id: "79", title: "건축도서관", description: "건축 관련 도서와 자료를 검색하고 대출할 수 있는 디지털 도서관입니다", category: "기타", url: "https://arch-library.org" }
+            {"category":"디자인","title":"핀터레스트","url":"https://www.pinterest.com","description":"건축과 디자인에 관한 영감을 주는 이미지들을 모아볼 수 있는 소셜 플랫폼입니다","id":"60"},
+            {"category":"디자인","title":"아키데일리","url":"https://www.archdaily.com","description":"세계에서 가장 방문자가 많은 건축 웹사이트로, 매일 업데이트되는 건축 프로젝트와 뉴스를 제공합니다","id":"1"},
+            {"category":"디자인","title":"디즌","url":"https://www.dezeen.com","description":"건축과 디자인 분야의 최신 트렌드와 혁신적인 프로젝트를 소개하는 영국의 대표적인 디자인 매거진입니다","id":"2"},
+            {"category":"디자인","title":"월페이퍼","url":"https://www.wallpaper.com","description":"건축, 디자인, 아트, 패션 등을 다루는 글로벌 라이프스타일 매거진입니다","id":"3"},
+            {"category":"디자인","title":"hahaha","url":"https://www.naver.com","description":"1928년부터 발행되어 온 이탈리아의 권위 있는 건축 및 디자인 매거진입니다","id":"4"},
+            {"category":"디자인","title":"도머스","url":"https://www.domusweb.it","description":"1928년부터 발행되어 온 이탈리아의 권위 있는 건축 및 디자인 매거진입니다","id":"5"},
+            {"category":"디자인","title":"베한스","url":"https://www.behance.net","description":"크리에이티브 전문가들의 포트폴리오와 작품을 공유하는 플랫폼입니다","id":"65"},
+            {"category":"디자인","title":"Archinect","url":"https://archinect.com","description":"건축 커뮤니티와 채용정보를 제공하는 글로벌 건축 플랫폼입니다","id":"71"},
+            {"category":"공모전","title":"씽굿","url":"https://www.thinkcontest.com","description":"창의적이고 혁신적인 아이디어를 발굴하는 국내 대표 공모전 플랫폼입니다","id":"7"},
+            {"category":"공모전","title":"캠퍼스픽","url":"https://www.campuspick.com","description":"대학생을 위한 다양한 공모전과 대외활동 정보를 제공하는 플랫폼입니다","id":"61"},
+            {"category":"공모전","title":"요즘것들","url":"https://www.yojeumgeotdeul.com","description":"젊은 크리에이터들을 위한 공모전과 프로젝트 정보를 큐레이션하는 사이트입니다","id":"62"},
+            {"category":"공모전","title":"슥삭","url":"https://www.ssakssak.co.kr","description":"건축 및 디자인 분야의 다양한 공모전 정보를 한눈에 볼 수 있는 플랫폼입니다","id":"63"},
+            {"category":"공모전","title":"공모전대전","url":"https://www.contestkorea.com","description":"국내 최대 규모의 공모전 정보 플랫폼입니다","id":"64"},
+            {"category":"채용정보","title":"대한건축사협회","url":"https://www.kira.or.kr/jsp/main/03/02_01.jsp","description":"@@","id":"12"},
+            {"category":"채용정보","title":"월간스페이스","url":"https://vmspace.com/job/job.html","description":"건축사무소와 건축 관련 기업의 채용 정보를 제공하는 전문 사이트입니다","id":"13"},
+            {"category":"채용정보","title":"건설워커","url":"https://www.worker.co.kr/","description":"건축 관련 인턴십과 신입 채용 정보를 전문적으로 다루는 플랫폼입니다","id":"14"},
+            {"category":"채용정보","title":"사람인","url":"https://www.saramin.co.kr/zf_user/jobs/list/domestic","description":"고급 건축 전문직과 시니어 포지션 채용 정보를 제공하는 헤드헌팅 사이트입니다","id":"15"},
+            {"category":"채용정보","title":"잡코리아","url":"https://www.jobkorea.co.kr","description":"국내 대표 채용 정보 사이트로 건축 분야 채용 정보도 풍부합니다","id":"66"},
+            {"category":"회사정보","title":"Foster + Partners","url":"https://www.fosterandpartners.com","description":"노먼 포스터가 설립한 세계적인 건축회사로, 혁신적이고 지속가능한 건축 디자인으로 유명합니다","id":"16"},
+            {"category":"회사정보","title":"Zaha Hadid","url":"https://www.zaha-hadid.com","description":"자하 하디드가 설립한 건축회사로, 유기적이고 곡선적인 형태의 건축물로 세계적인 명성을 얻었습니다","id":"17"},
+            {"category":"회사정보","title":"BIG","url":"https://big.dk","description":"비야케 잉겔스가 이끄는 덴마크의 건축회사로, 혁신적인 건축을 추구합니다","id":"18"},
+            {"category":"회사정보","title":"MVRDV","url":"https://www.mvrdv.nl","description":"네덜란드의 혁신적인 건축 스튜디오로, 창의적이고 지속가능한 도시 건축 솔루션을 제공합니다","id":"19"},
+            {"category":"회사정보","title":"삼성물산","url":"https://www.samsungcnt.com","description":"국내 대표 건설회사로 다양한 건축 프로젝트를 수행합니다","id":"67"},
+            {"category":"프로그램","title":"SketchUp","url":"https://www.sketchup.com","description":"직관적이고 사용하기 쉬운 3D 모델링 소프트웨어로 건축가들에게 인기입니다","id":"24"},
+            {"category":"프로그램","title":"AutoCAD","url":"https://www.autodesk.com/products/autocad","description":"건축 설계의 표준 CAD 프로그램으로 전 세계적으로 사용됩니다","id":"25"},
+            {"category":"프로그램","title":"Rhino 3D","url":"https://www.rhino3d.com","description":"복잡한 3D 형태를 모델링할 수 있는 전문적인 NURBS 기반 3D 소프트웨어입니다","id":"26"},
+            {"category":"프로그램","title":"Revit","url":"https://www.autodesk.com/products/revit","description":"BIM 기반의 건축 설계 소프트웨어로 협업과 정보 관리에 최적화되어 있습니다","id":"27"},
+            {"category":"프로그램","title":"Lumion","url":"https://lumion.com","description":"건축 시각화를 위한 3D 렌더링 소프트웨어입니다","id":"68"},
+            {"category":"유튜버","title":"Architectural Digest","url":"https://www.youtube.com/@ArchitecturalDigest","description":"유명 건축가와 디자이너의 작품을 소개하는 세계적인 디자인 매거진의 유튜브 채널입니다","id":"29"},
+            {"category":"유튜버","title":"Kirsten Dirksen","url":"https://www.youtube.com/@kirstendirksen","description":"지속가능한 건축과 혁신적인 친환경 기술을 다루는 교육적인 다큐멘터리 채널입니다","id":"30"},
+            {"category":"유튜버","title":"World Architecture","url":"https://www.youtube.com/@WorldArchitectureCommunity","description":"전 세계의 혁신적인 건축 프로젝트와 건축가를 소개하는 글로벌 커뮤니티 채널입니다","id":"31"},
+            {"category":"유튜버","title":"건축유튜버","url":"https://www.youtube.com/results?search_query=건축","description":"국내 건축 관련 유튜브 채널들을 모아서 볼 수 있는 플랫폼입니다","id":"32"},
+            {"category":"유튜버","title":"30X40 Design Workshop","url":"https://www.youtube.com/@30X40DesignWorkshop","description":"건축가를 위한 실용적인 디자인 팁과 워크플로우를 제공하는 채널입니다","id":"69"},
+            {"category":"커뮤니티","title":"건축Q&A","url":"https://arch-qa.com","description":"건축에 관한 질문과 답변을 나누는 커뮤니티 플랫폼입니다","id":"72"},
+            {"category":"커뮤니티","title":"아키토크","url":"https://architalk.kr","description":"건축학도와 건축가들이 모여 소통하는 온라인 커뮤니티입니다","id":"73"},
+            {"category":"커뮤니티","title":"건축포럼","url":"https://arch-forum.net","description":"건축 전문가들의 토론과 정보 공유를 위한 포럼입니다","id":"74"},
+            {"category":"커뮤니티","title":"디자인리뷰","url":"https://design-review.co.kr","description":"건축 작품에 대한 리뷰와 비평을 나누는 커뮤니티입니다","id":"75"},
+            {"category":"지도","title":"Google Earth","url":"https://earth.google.com","description":"전 세계의 건축물과 도시를 위성 이미지로 탐색할 수 있는 플랫폼입니다","id":"39"},
+            {"category":"지도","title":"아키맵","url":"https://archi-map.com","description":"국내외 유명 건축물의 위치와 정보를 지도로 확인할 수 있는 서비스입니다","id":"76"},
+            {"category":"지도","title":"건축여행","url":"https://arch-travel.kr","description":"건축물을 중심으로 한 여행 코스와 정보를 제공하는 플랫폼입니다","id":"77"},
+            {"category":"지도","title":"도시탐험","url":"https://city-explore.net","description":"도시 건축물과 공간을 탐험할 수 있는 가이드를 제공합니다","id":"78"},
+            {"category":"기타","title":"건축클래스","url":"https://arch-class.com","description":"온라인 건축 교육과 강의를 제공하는 학습 플랫폼입니다","id":"43"},
+            {"category":"기타","title":"건축뉴스","url":"https://arch-news.kr","description":"국내외 건축 관련 최신 뉴스와 트렌드를 제공하는 뉴스 사이트입니다","id":"44"},
+            {"category":"기타","title":"건축갤러리","url":"https://arch-gallery.net","description":"우수한 건축 작품과 포트폴리오를 전시하는 온라인 갤러리입니다","id":"45"},
+            {"category":"기타","title":"건축도서관","url":"https://arch-library.org","description":"건축 관련 도서와 자료를 검색하고 대출할 수 있는 디지털 도서관입니다","id":"79"}
         ];
+
 
         const categoryConfig = {
             "디자인": { icon: "🎨", iconClass: "icon-blue" },
@@ -285,65 +308,54 @@
             "회사정보": { icon: "🏢", iconClass: "icon-orange" },
             "프로그램": { icon: "💻", iconClass: "icon-purple" },
             "유튜버": { icon: "📺", iconClass: "icon-red" },
-            "커뮤니티": { icon: "💬", iconClass: "icon-indigo" },
+            "커뮤니티": { icon: "👥", iconClass: "icon-indigo" },
             "지도": { icon: "📍", iconClass: "icon-teal" },
             "기타": { icon: "📚", iconClass: "icon-gray" }
         };
 
-        let favorites = new Set();
+        let favorites = [];
         let showDescriptions = false;
         let expandedCategories = new Set();
-        let favoritePositions = {};
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadFavorites();
-            loadVisitorCount();
-            loadFavoritePositions();
-            renderCategories();
-            updateFavoritesDisplay();
+        // 방문자 수: localStorage에 오늘 날짜별 방문횟수 카운트
+        function loadVisitorCount() {
+            const today = new Date().toISOString().slice(0, 10);
+            const key = 'sfu-visit-' + today;
+            let count = parseInt(localStorage.getItem(key) || "0", 10);
+            count++;
+            localStorage.setItem(key, count.toString());
+            document.getElementById('visitor-count').textContent = count;
+        }
 
-            const searchInput = document.getElementById('search-input');
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') handleSearch();
-                });
-            }
-        });
+        function updateFooterTime(){
+            const el = document.getElementById('footer-time');
+            if(!el) return;
+            const now = new Date();
+            const pad = (n)=> String(n).padStart(2,'0');
+            el.textContent = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+        }
 
         function loadFavorites() {
-            const saved = localStorage.getItem('honeypot-favorites');
-            if (saved) favorites = new Set(JSON.parse(saved));
+            const saved = localStorage.getItem('sfu-favorites-v2');
+            if (saved) favorites = JSON.parse(saved);
         }
-        function saveFavorites() { localStorage.setItem('honeypot-favorites', JSON.stringify([...favorites])); }
-        function loadFavoritePositions() {
-            const saved = localStorage.getItem('honeypot-favorite-positions');
-            if (saved) favoritePositions = JSON.parse(saved);
-        }
-        function saveFavoritePositions() { localStorage.setItem('honeypot-favorite-positions', JSON.stringify(favoritePositions)); }
-
-        function loadVisitorCount() {
-            const today = new Date().toDateString();
-            const savedDate = localStorage.getItem('honeypot-visit-date');
-            if (savedDate !== today) {
-                const randomVisitors = Math.floor(Math.random() * 100) + 50;
-                document.getElementById('visitor-count').textContent = randomVisitors;
-                localStorage.setItem('honeypot-visit-date', today);
-                localStorage.setItem('honeypot-visitors', randomVisitors.toString());
-            } else {
-                const savedVisitors = localStorage.getItem('honeypot-visitors');
-                document.getElementById('visitor-count').textContent = savedVisitors || '73';
-            }
+        function saveFavorites() {
+            localStorage.setItem('sfu-favorites-v2', JSON.stringify(favorites));
         }
 
         function renderCategories() {
             const grid = document.getElementById('categories-grid');
-            grid.innerHTML = ''; // 중복 렌더링 방지
+            grid.innerHTML = '';
             const categoryOrder = ["디자인", "공모전", "채용정보", "회사정보", "프로그램", "유튜버", "커뮤니티", "지도", "기타"];
 
+            // 즐겨찾기에 있는 것은 제외
+            const favSet = new Set(favorites);
             const categorizedWebsites = {};
             websites.forEach(website => {
-                if (!categorizedWebsites[website.category]) categorizedWebsites[website.category] = [];
-                categorizedWebsites[website.category].push(website);
+                if (!favSet.has(website.id)) {
+                    if (!categorizedWebsites[website.category]) categorizedWebsites[website.category] = [];
+                    categorizedWebsites[website.category].push(website);
+                }
             });
 
             categoryOrder.forEach(category => {
@@ -354,15 +366,15 @@
             });
         }
 
-        function createCategoryCard(category, websites) {
+        function createCategoryCard(category, sites) {
             const config = categoryConfig[category];
             const isExpanded = expandedCategories.has(category);
-            const sitesToShow = isExpanded ? websites : websites.slice(0, 4);
-            const hasMore = websites.length > 4;
+            const limit = 4;
+            const sitesToShow = isExpanded ? sites : sites.slice(0, limit);
+            const hasMore = sites.length > limit;
 
             const card = document.createElement('div');
             card.className = 'category-card';
-
             card.innerHTML = `
                 <div class="category-header">
                     <div class="category-title">
@@ -373,26 +385,16 @@
                 <div class="category-content">
                     <div class="website-list">
                         ${sitesToShow.map(website => createWebsiteItem(website)).join('')}
-                        ${hasMore ? `<button class="more-btn" data-category="${category}">${isExpanded ? '⬆️ 접기' : `⬇️ 더보기 (${websites.length - 4}개 더)`}</button>` : ''}
+                        ${hasMore ? `<button class="more-btn" data-category="${category}">${isExpanded ? '⬆️ 접기' : `⬇️ 더보기 (${sites.length - limit}개 더)`}</button>` : ''}
                     </div>
                 </div>
             `;
-
-            // 이벤트 위임: 더보기 버튼
-            card.querySelectorAll('.more-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    toggleCategory(category);
-                });
-            });
-
             return card;
         }
 
         function createWebsiteItem(website) {
-            const isFavorited = favorites.has(website.id);
-            const itemClass = showDescriptions ? 'website-item expanded' : 'website-item collapsed';
-
-            // onclick inline event might not provide event reliably when string-built, so use data-attribute and event delegation later.
+            const isFavorited = favorites.includes(website.id);
+            const itemClass = showDescriptions ? 'website-item expanded' : 'website-item';
             return `
                 <div class="${itemClass}" data-id="${website.id}">
                     <div class="website-header">
@@ -400,6 +402,7 @@
                              onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><rect width=%2216%22 height=%2216%22 fill=%22%23e5e7eb%22/><text x=%228%22 y=%2212%22 text-anchor=%22middle%22 fill=%22%236b7280%22 font-size=%228%22>🌐</text></svg>'">
                         <div class="website-content">
                             <a href="${website.url}" target="_blank" class="website-title" ${!showDescriptions ? `title="${website.description}"` : ''}>${website.title}</a>
+                            ${showDescriptions ? `<div class="website-description">${website.description}</div>` : ''}
                         </div>
                         <button class="favorite-btn" data-id="${website.id}" aria-label="즐겨찾기">
                             <svg class="star-icon ${isFavorited ? 'favorited' : 'not-favorited'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -407,36 +410,132 @@
                             </svg>
                         </button>
                     </div>
-                    ${showDescriptions ? `<div class="website-description">${website.description}</div>` : ''}
                 </div>
             `;
         }
 
-        // 이벤트 위임(즐겨찾기 버튼)
+        function updateFavoritesDisplay() {
+            const favoritesSection = document.getElementById('favorites-section');
+            const favoritesContainer = document.getElementById('favorites-container');
+            if (favorites.length === 0) {
+                favoritesSection.style.display = 'none';
+                return;
+            }
+            favoritesSection.style.display = 'block';
+            favoritesContainer.innerHTML = '';
+
+            favorites.forEach((websiteId, index) => {
+                const website = websites.find(w => w.id === websiteId);
+                if (website) {
+                    const favoriteItem = document.createElement('div');
+                    favoriteItem.className = 'favorite-item';
+                    favoriteItem.setAttribute('draggable', 'true');
+                    favoriteItem.setAttribute('data-index', index);
+
+                    favoriteItem.innerHTML = `
+                        <img src="https://www.google.com/s2/favicons?domain=${website.url}&sz=16" alt="" style="width:16px;height:16px;"
+                             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><rect width=%2216%22 height=%2216%22 fill=%22%23e5e7eb%22/></svg>'">
+                        <a href="${website.url}" target="_blank" style="text-decoration:none; color:#111827; font-size:14px; font-weight:500;">${website.title}</a>
+                        <button data-id="${website.id}" class="favorite-remove" aria-label="즐겨찾기제거" style="font-size:14px; color:#bfae6b; background:none; border:none; cursor:pointer;">⭐</button>
+                    `;
+                    // 드래그 앤 드롭 핸들러
+                    favoriteItem.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.effectAllowed = "move";
+                        e.dataTransfer.setData('text/plain', index);
+                    });
+                    favoriteItem.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        favoriteItem.style.background = "#fffde4";
+                    });
+                    favoriteItem.addEventListener('dragleave', () => {
+                        favoriteItem.style.background = "";
+                    });
+                    favoriteItem.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        favoriteItem.style.background = "";
+                        const from = parseInt(e.dataTransfer.getData('text/plain'), 10);
+                        const to = parseInt(favoriteItem.getAttribute('data-index'), 10);
+                        if (from !== to) {
+                            const moved = favorites.splice(from, 1)[0];
+                            favorites.splice(to, 0, moved);
+                            saveFavorites();
+                            updateFavoritesDisplay();
+                        }
+                    });
+                    // 별표 클릭으로 즐겨찾기 제거
+                    favoriteItem.querySelector('.favorite-remove').addEventListener('click', (ev)=>{
+                        ev.stopPropagation();
+                        favorites = favorites.filter(f => f !== website.id);
+                        saveFavorites();
+                        updateFavoritesDisplay();
+                        renderCategories();
+                    });
+                    favoritesContainer.appendChild(favoriteItem);
+                }
+            });
+        }
+
+        // ---- 이벤트 위임 및 기타 ----
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('btnContact').addEventListener('click', openContactModal);
+            document.getElementById('floatingContactBtn').addEventListener('click', openContactModal);
+            document.getElementById('contact-close').addEventListener('click', closeContactModal);
+            document.getElementById('btnContactSubmit').addEventListener('click', handleContactSubmit);
+            document.getElementById('btnToggleDesc').addEventListener('click', toggleDescriptions);
+            document.getElementById('btnHomepage').addEventListener('click', setAsHomepage);
+
+            loadFavorites();
+            loadVisitorCount();
+            renderCategories();
+            updateFavoritesDisplay();
+            updateFooterTime();
+
+            document.addEventListener('keydown', (e)=>{
+                if(e.key === 'Escape') closeContactModal();
+            });
+        });
+
+        // 카테고리 내 사이트 카드 클릭/별/더보기/그림자 효과 등
         document.addEventListener('click', function(e) {
+            // 즐겨찾기 토글
             const favBtn = e.target.closest('.favorite-btn');
             if (favBtn) {
                 const id = favBtn.getAttribute('data-id');
                 toggleFavorite(id, e);
+                return;
             }
-
+            // 더보기 버튼
             const moreBtn = e.target.closest('.more-btn[data-category]');
             if (moreBtn) {
                 const cat = moreBtn.getAttribute('data-category');
                 toggleCategory(cat);
+                return;
             }
+            // 모달 바깥쪽 클릭 닫기
+            const modal = document.getElementById('contact-modal');
+            if (modal.classList.contains('open') && e.target === modal) {
+                closeContactModal();
+            }
+        });
+
+        // 그림자 효과: 마우스 올렸을 때만
+        document.addEventListener('mouseover', function(e){
+            const card = e.target.closest('.website-item');
+            if (card) card.classList.add('shadow-hover');
+        });
+        document.addEventListener('mouseout', function(e){
+            const card = e.target.closest('.website-item');
+            if (card) card.classList.remove('shadow-hover');
         });
 
         function toggleFavorite(websiteId, event) {
             event.preventDefault();
             event.stopPropagation();
-
-            const isAdding = !favorites.has(websiteId);
-            if (isAdding) {
-                favorites.add(websiteId);
-                // 간단한 시각 효과: star에 클래스 토글
+            const idx = favorites.indexOf(websiteId);
+            if (idx === -1) {
+                favorites.push(websiteId);
             } else {
-                favorites.delete(websiteId);
+                favorites.splice(idx, 1);
             }
             saveFavorites();
             updateFavoritesDisplay();
@@ -452,79 +551,34 @@
         function toggleDescriptions() {
             showDescriptions = !showDescriptions;
             renderCategories();
-            const txtBtns = document.querySelectorAll('.btn-ghost');
-            // (선택적) 버튼 텍스트 업데이트
         }
 
-        function updateFavoritesDisplay() {
-            const favoritesSection = document.getElementById('favorites-section');
-            const favoritesContainer = document.getElementById('favorites-container');
-
-            if (favorites.size > 0) {
-                favoritesSection.style.display = 'block';
-                favoritesContainer.innerHTML = '';
-
-                favorites.forEach(websiteId => {
-                    const website = websites.find(w => w.id === websiteId);
-                    if (website) {
-                        const position = favoritePositions[websiteId] || { x: 0, y: 0 };
-                        const favoriteItem = document.createElement('div');
-                        favoriteItem.className = 'favorite-item';
-                        favoriteItem.draggable = true;
-
-                        favoriteItem.innerHTML = `
-                            <img src="https://www.google.com/s2/favicons?domain=${website.url}&sz=16" alt="" style="width:16px;height:16px;"
-                                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><rect width=%2216%22 height=%2216%22 fill=%22%23e5e7eb%22/></svg>'">
-                            <a href="${website.url}" target="_blank" style="text-decoration:none; color:#111827; font-size:14px; font-weight:500;">${website.title}</a>
-                            <button data-id="${website.id}" style="border:none; background:none; cursor:pointer; padding:2px;">⭐</button>
-                        `;
-
-                        favoriteItem.addEventListener('dragstart', (e) => {
-                            e.dataTransfer.setData('text/plain', website.id);
-                        });
-
-                        favoriteItem.addEventListener('drag', (e) => {
-                            if (e.clientX > 0 && e.clientY > 0) {
-                                const rect = favoritesContainer.getBoundingClientRect();
-                                const newX = e.clientX - rect.left;
-                                const newY = e.clientY - rect.top;
-                                favoritePositions[website.id] = { x: newX, y: newY };
-                                favoriteItem.style.left = newX + 'px';
-                                favoriteItem.style.top = newY + 'px';
-                                saveFavoritePositions();
-                            }
-                        });
-
-                        favoritesContainer.appendChild(favoriteItem);
-                    }
-                });
-            } else {
-                favoritesSection.style.display = 'none';
-            }
+        function openContactModal() {
+            const modal = document.getElementById('contact-modal');
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden','false');
         }
-
-        function handleSearch() {
-            const query = document.getElementById('search-input').value.trim();
-            if (query) {
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
-            }
+        function closeContactModal() {
+            const modal = document.getElementById('contact-modal');
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden','true');
         }
-
-        function openContactModal() { document.getElementById('contact-modal').style.display = 'block'; }
-        function closeContactModal() { document.getElementById('contact-modal').style.display = 'none'; }
         function handleContactSubmit() {
             const name = document.getElementById('contact-name').value;
             const email = document.getElementById('contact-email').value;
             const message = document.getElementById('contact-message').value;
             const subject = encodeURIComponent('꿀단지 문의사항');
-            const body = encodeURIComponent(`이름: ${name}\n이메일: ${email}\n\n문의내용:\n${message}`);
+            const body = encodeURIComponent(`이름: ${name}
+이메일: ${email}
+
+문의내용:
+${message}`);
             window.location.href = `mailto:okjsk1@gmail.com?subject=${subject}&body=${body}`;
             document.getElementById('contact-name').value = '';
             document.getElementById('contact-email').value = '';
             document.getElementById('contact-message').value = '';
             closeContactModal();
         }
-
         function setAsHomepage() {
             try {
                 if (window.chrome) alert('크롬에서는 설정 > 시작 그룹에서 직접 설정해주세요.');
@@ -532,12 +586,6 @@
             } catch(e) {
                 alert('브라우저 설정에서 직접 시작페이지를 설정해주세요.');
             }
-        }
-
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('contact-modal');
-            if (event.target === modal) modal.style.display = 'none';
         }
     </script>
 </body>
