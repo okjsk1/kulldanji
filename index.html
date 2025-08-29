@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>꿀단지 - 건축인들의 달콤한 정보 저장소</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
+   <style>
         :root {
             --main-yellow: #fbbf24;
             --main-orange: #f59e0b;
@@ -20,17 +17,21 @@
             --header-gradient: linear-gradient(90deg, var(--main-yellow), var(--main-orange) 70%, var(--main-yellow));
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+
+           body {
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #fff9e5 0%, #fef3c7 60%, #fde68a 100%);
             min-height: 100vh;
             color: #47340a;
         }
 
-        /* 헤더 */
+         /* 헤더 */
         .header {
             background: var(--header-gradient);
+            padding: 0;
             border-bottom: 1.5px solid #fad97c;
             box-shadow: 0 3px 12px -6px #fbbf2430;
             position: sticky; top: 0; z-index: 100;
@@ -76,7 +77,88 @@
             background: #fde68add;
         }
 
-        /* 검색창 */
+       /* 방문자수 */
+        .visitor-count {
+            position: fixed;
+            bottom: 1.2rem; right: 1.2rem;
+            background: var(--header-gradient);
+            color: #7a5608;
+            padding: 0.78rem 1.15rem;
+            border-radius: 999px;
+            box-shadow: 0 4px 12px -1px #fbbf243a;
+            border: 2px solid #f5c542;
+            font-size: 1.04rem; font-weight: 600;
+            z-index: 99;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        /* 즐겨찾기 섹션 */
+        .favorites-section {
+            padding: 1.5rem;
+            background: linear-gradient(90deg, #fef3c7, #fde68a, #fef3c7);
+            border-bottom: 2px solid #fbbf24;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .favorites-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .favorites-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #a16207;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .trash-area {
+            padding: 0.75rem;
+            border: 2px dashed #9ca3af;
+            border-radius: 0.5rem;
+            background: #f3f4f6;
+            transition: all 0.3s;
+        }
+
+        .trash-area.drag-over {
+            background: #fecaca;
+            border-color: #f87171;
+            transform: scale(1.1);
+        }
+
+        .favorites-container {
+            position: relative;
+            height: 128px;
+            background: #fefce8;
+            border: 2px dashed #fbbf24;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .favorite-item {
+            position: absolute;
+            background: white;
+            border: 2px solid #fde68a;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: move;
+            transition: all 0.2s;
+            min-width: max-content;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .favorite-item:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+ /* 검색창 */
         .search-section {
             background: #fff;
             border-bottom: 1.5px solid #f3e8c7;
@@ -115,25 +197,6 @@
         }
         .search-btn:hover { background: #2563eb; }
 
-        /* 광고 */
-        .ads-left, .ads-right {
-            width: 90px; min-width: 70px; max-width: 110px;
-            display: flex; flex-direction: column; gap: 1.35rem;
-            align-items: center; padding: .6rem 0;
-        }
-        .ad-banner {
-            background: var(--soft-gray);
-            border: 2px dashed #ffe69a;
-            border-radius: .9rem;
-            min-height: 110px;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            color: #c69d47; text-align: center;
-            box-shadow: 0 2px 6px -1px #ffd96627;
-            font-size: 1.13rem;
-        }
-        .ad-icon { font-size: 1.5rem; margin-bottom: .3rem; }
-
         /* 메인 레이아웃 */
         .main-layout {
             display: flex; gap: 2rem;
@@ -141,7 +204,38 @@
             padding: 2.5rem 2rem 0 2rem;
         }
 
-        /* 카테고리 그리드 */
+        .ads-left, .ads-right {
+            width: 112px;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .ad-banner {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border: 2px dashed #9ca3af;
+            border-radius: 0.75rem;
+            height: 256px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            text-align: center;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .ad-content {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .ad-icon {
+            font-size: 24px;
+            margin-bottom: 0.5rem;
+        }
+
+       /* 카테고리 그리드 */
         .categories-grid {
             flex: 1;
             display: grid;
@@ -160,6 +254,7 @@
             .main-layout { flex-direction: column;}
             .ads-left, .ads-right { display: none;}
         }
+       
 
         /* 카테고리 카드 */
         .category-card {
@@ -173,30 +268,43 @@
             transition: box-shadow .2s, border-color .2s;
             min-width: 0;
         }
-        .category-card:hover {
+
+       .category-card:hover {
             box-shadow: 0 8px 32px 0 #fae36c33;
             border-color: #ffd966;
         }
-        .category-header {
+
+      .category-header {
             display: flex; align-items: center; gap: 0.7rem;
             margin-bottom: 0.3rem;
         }
-        .category-icon {
+        .category-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+     .category-icon {
             font-size: 1.5rem; flex-shrink: 0;
         }
         .category-name {
             font-size: 1.18rem; font-weight: 600; color: #886200;
             letter-spacing: 0.01em;
         }
-        .website-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
+
+        .category-content {
+            padding: 0.25rem;
         }
-        .website-item {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
+
+        .website-list {
+            display: flex; flex-direction: column; gap: 0.25rem;
+        }
+       
+ /* 사이트 아이템 */
+         .website-item {
+            display: flex; align-items: center; gap: 0.7rem;
             background: #fff;
             border-radius: .6rem;
             padding: 0.33rem 0.65rem 0.33rem 0.5rem;
@@ -208,21 +316,49 @@
             border-color: #fbbf24;
             box-shadow: 0 2px 8px 0 #fff7cd39;
         }
-        .website-favicon {
+
+        .website-item.expanded {
+            min-height: 60px;
+        }
+
+        .website-item.collapsed {
+            height: 40px;
+        }
+
+        .website-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+   .website-favicon {
             width: 18px; height: 18px; border-radius: 5px; background: #faf6e1;
             object-fit: cover; flex-shrink: 0; border: 1px solid #ffe69a;
         }
-        .website-title {
+
+        .website-content {
+            flex: 1;
+        }
+
+     .website-title {
             font-size: 1.04rem; font-weight: 500; color: #47340a;
             text-decoration: none; transition: color .18s;
         }
+
         .website-title:hover { color: #2563eb; text-decoration: underline; }
         .favorite-btn {
             margin-left: auto;
             background: 0; border: 0; padding: 0.11rem;
             display: flex; align-items: center; cursor: pointer;
         }
-        .star-icon {
+
+        .favorite-btn:hover {
+            background: #fef3c7;
+            border-radius: 0.25rem;
+        }
+
+  .star-icon {
             width: 19px; height: 19px; margin-top: 1px;
             fill: none; stroke: #bfae6b; transition: fill .2s;
         }
@@ -240,24 +376,162 @@
             box-shadow: 0 1px 5px 0 #ffe7b12a;
             transition: background .18s, border-color .17s;
         }
-        .more-btn:hover { background: #fef08a; border-color: #ffd966; }
 
-        /* 방문자수 */
-        .visitor-count {
-            position: fixed;
-            bottom: 1.2rem; right: 1.2rem;
-            background: var(--header-gradient);
-            color: #7a5608;
-            padding: 0.78rem 1.15rem;
-            border-radius: 999px;
-            box-shadow: 0 4px 12px -1px #fbbf243a;
-            border: 2px solid #f5c542;
-            font-size: 1.04rem; font-weight: 600;
-            z-index: 99;
-            display: flex; align-items: center; gap: 0.5rem;
+        .star-icon.not-favorited {
+            fill: none;
+            color: #9ca3af;
         }
 
-        /* 푸터 - 시간 */
+        .star-icon.not-favorited:hover {
+            color: #eab308;
+        }
+
+        .website-description {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.5;
+            word-break: break-words;
+            margin-top: 0.5rem;
+            padding-left: 0.25rem;
+        }
+
+        .more-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+         .more-btn:hover { background: #fef08a; border-color: #ffd966; }
+
+        /* 아이콘 색상 */
+        .icon-blue { color: #3b82f6; }
+        .icon-yellow { color: #eab308; }
+        .icon-green { color: #10b981; }
+        .icon-orange { color: #f97316; }
+        .icon-purple { color: #8b5cf6; }
+        .icon-red { color: #ef4444; }
+        .icon-indigo { color: #6366f1; }
+        .icon-teal { color: #14b8a6; }
+        .icon-gray { color: #6b7280; }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: #3b82f6;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        /* 애니메이션 */
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                transform: translate3d(0, -30px, 0);
+            }
+            70% {
+                transform: translate3d(0, -15px, 0);
+            }
+            90% {
+                transform: translate3d(0, -4px, 0);
+            }
+        }
+
+        .animate-bounce {
+            animation: bounce 1s;
+        }
+
+
+          /* 푸터 - 시간 */
         .footer {
             width: 100%;
             text-align: right;
@@ -266,6 +540,38 @@
             padding: 0.5rem 1.7rem 0.25rem 0;
             margin-top: 2.5rem;
             letter-spacing: 0.01em;
+        }
+
+       
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .ads-left, .ads-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .header-left, .header-right {
+                width: 100%;
+            }
+            
+            .header-right {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
@@ -290,6 +596,23 @@
         </div>
     </header>
 
+    <!-- 방문자 수 -->
+    <div class="visitor-count">
+        👥 <span>오늘 방문자: <span id="visitor-count">73</span>명</span>
+    </div>
+
+    <!-- 즐겨찾기 섹션 -->
+    <div class="favorites-section" id="favorites-section" style="display: none;">
+        <div class="favorites-header">
+            <h2 class="favorites-title">📁 내 즐겨찾기</h2>
+            <div class="trash-area" id="trash-area">🗑️</div>
+        </div>
+        <div class="favorites-container" id="favorites-container">
+            <!-- 즐겨찾기 아이템들이 여기에 동적으로 추가됩니다 -->
+        </div>
+    </div>
+
+    <!-- 검색창 -->
     <div class="search-section">
         <div class="search-container">
             <div class="search-box">
@@ -300,55 +623,498 @@
         </div>
     </div>
 
+     /* 광고 */
+        .ads-left, .ads-right {
+            width: 90px; min-width: 70px; max-width: 110px;
+            display: flex; flex-direction: column; gap: 1.35rem;
+            align-items: center; padding: .6rem 0;
+        }
+        .ad-banner {
+            background: var(--soft-gray);
+            border: 2px dashed #ffe69a;
+            border-radius: .9rem;
+            min-height: 110px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            color: #c69d47; text-align: center;
+            box-shadow: 0 2px 6px -1px #ffd96627;
+            font-size: 1.13rem;
+        }
+        .ad-icon { font-size: 1.5rem; margin-bottom: .3rem; }
+    
+    <!-- 메인 레이아웃 -->
     <div class="main-layout">
+        <!-- 왼쪽 광고 -->
         <div class="ads-left">
-            <div class="ad-banner"><div class="ad-icon">📢</div>광고1</div>
-            <div class="ad-banner"><div class="ad-icon">📢</div>광고2</div>
-        </div>
-
-        <div class="categories-grid">
-            <!-- JS로 사이트가 렌더링될 영역입니다.
-                 아래는 예시 / 실제 JS로 데이터 렌더링 시에도 동일 구조로 출력됩니다. -->
-            <div class="category-card">
-                <div class="category-header">
-                    <span class="category-icon">🎨</span>
-                    <span class="category-name">디자인</span>
-                </div>
-                <div class="website-list">
-                    <div class="website-item">
-                        <img class="website-favicon" src="https://www.google.com/s2/favicons?domain=archdaily.com&sz=16" alt="">
-                        <a href="#" class="website-title">아키데일리</a>
-                        <button class="favorite-btn">
-                            <svg class="star-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <polygon points="12,2 15,8 22,9 17,14 18,21 12,18 6,21 7,14 2,9 9,8"></polygon>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="website-item">
-                        <img class="website-favicon" src="https://www.google.com/s2/favicons?domain=dezeen.com&sz=16" alt="">
-                        <a href="#" class="website-title">디즌</a>
-                        <button class="favorite-btn">
-                            <svg class="star-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <polygon points="12,2 15,8 22,9 17,14 18,21 12,18 6,21 7,14 2,9 9,8"></polygon>
-                            </svg>
-                        </button>
-                    </div>
-                    <!-- ...다른 사이트 반복... -->
-                    <button class="more-btn">더보기 (3개 더)</button>
+            <div class="ad-banner">
+                <div class="ad-content">
+                    <div class="ad-icon">📢</div>
+                    광고1
                 </div>
             </div>
-            <!-- ...카테고리 반복... -->
+            <div class="ad-banner">
+                <div class="ad-content">
+                    <div class="ad-icon">📢</div>
+                    광고2
+                </div>
+            </div>
         </div>
 
+        <!-- 카테고리 그리드 -->
+        <div class="categories-grid" id="categories-grid">
+            <!-- 카테고리들이 여기에 동적으로 생성됩니다 -->
+        </div>
+
+        <!-- 오른쪽 광고 -->
         <div class="ads-right">
             <div class="ad-banner"><div class="ad-icon">📢</div>광고3</div>
             <div class="ad-banner"><div class="ad-icon">📢</div>광고4</div>
         </div>
     </div>
-
-    <div class="visitor-count">
-        👥 <span>오늘 방문자: <span id="visitor-count">98</span>명</span>
+            <div class="ad-banner">
+                <div class="ad-content">
+                    <div class="ad-icon">📢</div>
+                    광고4
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="footer">오후 6:41<br>2025-08-29</div>
+
+    <!-- 문의하기 모달 -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeContactModal()">&times;</span>
+                <h2 class="modal-title">문의하기</h2>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="이름" id="contact-name">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="이메일" id="contact-email">
+            </div>
+            <div class="form-group">
+                <textarea class="form-textarea" placeholder="문의내용을 입력해주세요" id="contact-message"></textarea>
+            </div>
+            <button class="btn-primary" onclick="handleContactSubmit()">
+                📤 문의내용 보내기
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 웹사이트 데이터
+        const websites = [
+            // 디자인 카테고리
+            { id: "1", title: "아키데일리", description: "세계에서 가장 방문자가 많은 건축 웹사이트로, 매일 업데이트되는 건축 프로젝트와 뉴스를 제공합니다", category: "디자인", url: "https://www.archdaily.com" },
+            { id: "2", title: "디즌", description: "건축과 디자인 분야의 최신 트렌드와 혁신적인 프로젝트를 소개하는 영국의 대표적인 디자인 매거진입니다", category: "디자인", url: "https://www.dezeen.com" },
+            { id: "3", title: "월페이퍼", description: "건축, 디자인, 아트, 패션 등을 다루는 글로벌 라이프스타일 매거진입니다", category: "디자인", url: "https://www.wallpaper.com" },
+            { id: "4", title: "도머스", description: "1928년부터 발행되어 온 이탈리아의 권위 있는 건축 및 디자인 매거진입니다", category: "디자인", url: "https://www.domusweb.it" },
+            { id: "60", title: "핀터레스트", description: "건축과 디자인에 관한 영감을 주는 이미지들을 모아볼 수 있는 소셜 플랫폼입니다", category: "디자인", url: "https://www.pinterest.com" },
+            { id: "65", title: "베한스", description: "크리에이티브 전문가들의 포트폴리오와 작품을 공유하는 플랫폼입니다", category: "디자인", url: "https://www.behance.net" },
+            { id: "71", title: "Archinect", description: "건축 커뮤니티와 채용정보를 제공하는 글로벌 건축 플랫폼입니다", category: "디자인", url: "https://archinect.com" },
+
+            // 공모전 카테고리  
+            { id: "7", title: "씽굿", description: "창의적이고 혁신적인 아이디어를 발굴하는 국내 대표 공모전 플랫폼입니다", category: "공모전", url: "https://www.thinkg.net" },
+            { id: "61", title: "캠퍼스픽", description: "대학생을 위한 다양한 공모전과 대외활동 정보를 제공하는 플랫폼입니다", category: "공모전", url: "https://www.campuspick.com" },
+            { id: "62", title: "요즘것들", description: "젊은 크리에이터들을 위한 공모전과 프로젝트 정보를 큐레이션하는 사이트입니다", category: "공모전", url: "https://www.yojeumgeotdeul.com" },
+            { id: "63", title: "슥삭", description: "건축 및 디자인 분야의 다양한 공모전 정보를 한눈에 볼 수 있는 플랫폼입니다", category: "공모전", url: "https://www.ssakssak.co.kr" },
+            { id: "64", title: "공모전대전", description: "국내 최대 규모의 공모전 정보 플랫폼입니다", category: "공모전", url: "https://www.contestkorea.com" },
+
+            // 채용정보 카테고리
+            { id: "12", title: "기술찾기", description: "건축 및 기술 분야의 전문 채용 정보를 제공하는 플랫폼입니다", category: "채용정보", url: "https://www.tech-find.co.kr" },
+            { id: "13", title: "건축채용", description: "건축사무소와 건축 관련 기업의 채용 정보를 제공하는 전문 사이트입니다", category: "채용정보", url: "https://arch-jobs.co.kr" },
+            { id: "14", title: "건축인턴", description: "건축 관련 인턴십과 신입 채용 정보를 전문적으로 다루는 플랫폼입니다", category: "채용정보", url: "https://arch-intern.com" },
+            { id: "15", title: "건축전문직", description: "고급 건축 전문직과 시니어 포지션 채용 정보를 제공하는 헤드헌팅 사이트입니다", category: "채용정보", url: "https://arch-professional.net" },
+            { id: "66", title: "잡코리아", description: "국내 대표 채용 정보 사이트로 건축 분야 채용 정보도 풍부합니다", category: "채용정보", url: "https://www.jobkorea.co.kr" },
+
+            // 회사정보 카테고리
+            { id: "16", title: "Foster + Partners", description: "노먼 포스터가 설립한 세계적인 건축회사로, 혁신적이고 지속가능한 건축 디자인으로 유명합니다", category: "회사정보", url: "https://www.fosterandpartners.com" },
+            { id: "17", title: "Zaha Hadid", description: "자하 하디드가 설립한 건축회사로, 유기적이고 곡선적인 형태의 건축물로 세계적인 명성을 얻었습니다", category: "회사정보", url: "https://www.zaha-hadid.com" },
+            { id: "18", title: "BIG", description: "비야케 잉겔스가 이끄는 덴마크의 건축회사로, 혁신적인 건축을 추구합니다", category: "회사정보", url: "https://big.dk" },
+            { id: "19", title: "MVRDV", description: "네덜란드의 혁신적인 건축 스튜디오로, 창의적이고 지속가능한 도시 건축 솔루션을 제공합니다", category: "회사정보", url: "https://www.mvrdv.nl" },
+            { id: "67", title: "삼성물산", description: "국내 대표 건설회사로 다양한 건축 프로젝트를 수행합니다", category: "회사정보", url: "https://www.samsungcnt.com" },
+
+            // 프로그램 카테고리
+            { id: "24", title: "SketchUp", description: "직관적이고 사용하기 쉬운 3D 모델링 소프트웨어로 건축가들에게 인기입니다", category: "프로그램", url: "https://www.sketchup.com" },
+            { id: "25", title: "AutoCAD", description: "건축 설계의 표준 CAD 프로그램으로 전 세계적으로 사용됩니다", category: "프로그램", url: "https://www.autodesk.com/products/autocad" },
+            { id: "26", title: "Rhino 3D", description: "복잡한 3D 형태를 모델링할 수 있는 전문적인 NURBS 기반 3D 소프트웨어입니다", category: "프로그램", url: "https://www.rhino3d.com" },
+            { id: "27", title: "Revit", description: "BIM 기반의 건축 설계 소프트웨어로 협업과 정보 관리에 최적화되어 있습니다", category: "프로그램", url: "https://www.autodesk.com/products/revit" },
+            { id: "68", title: "Lumion", description: "건축 시각화를 위한 3D 렌더링 소프트웨어입니다", category: "프로그램", url: "https://lumion.com" },
+
+            // 유튜버 카테고리
+            { id: "29", title: "Architectural Digest", description: "유명 건축가와 디자이너의 작품을 소개하는 세계적인 디자인 매거진의 유튜브 채널입니다", category: "유튜버", url: "https://www.youtube.com/@ArchitecturalDigest" },
+            { id: "30", title: "Kirsten Dirksen", description: "지속가능한 건축과 혁신적인 친환경 기술을 다루는 교육적인 다큐멘터리 채널입니다", category: "유튜버", url: "https://www.youtube.com/@kirstendirksen" },
+            { id: "31", title: "World Architecture", description: "전 세계의 혁신적인 건축 프로젝트와 건축가를 소개하는 글로벌 커뮤니티 채널입니다", category: "유튜버", url: "https://www.youtube.com/@WorldArchitectureCommunity" },
+            { id: "32", title: "건축유튜버", description: "국내 건축 관련 유튜브 채널들을 모아서 볼 수 있는 플랫폼입니다", category: "유튜버", url: "https://www.youtube.com/results?search_query=건축" },
+            { id: "69", title: "30X40 Design Workshop", description: "건축가를 위한 실용적인 디자인 팁과 워크플로우를 제공하는 채널입니다", category: "유튜버", url: "https://www.youtube.com/@30X40DesignWorkshop" },
+
+            // 커뮤니티 카테고리
+            { id: "72", title: "건축Q&A", description: "건축에 관한 질문과 답변을 나누는 커뮤니티 플랫폼입니다", category: "커뮤니티", url: "https://arch-qa.com" },
+            { id: "73", title: "아키토크", description: "건축학도와 건축가들이 모여 소통하는 온라인 커뮤니티입니다", category: "커뮤니티", url: "https://architalk.kr" },
+            { id: "74", title: "건축포럼", description: "건축 전문가들의 토론과 정보 공유를 위한 포럼입니다", category: "커뮤니티", url: "https://arch-forum.net" },
+            { id: "75", title: "디자인리뷰", description: "건축 작품에 대한 리뷰와 비평을 나누는 커뮤니티입니다", category: "커뮤니티", url: "https://design-review.co.kr" },
+
+            // 지도 카테고리
+            { id: "39", title: "Google Earth", description: "전 세계의 건축물과 도시를 위성 이미지로 탐색할 수 있는 플랫폼입니다", category: "지도", url: "https://earth.google.com" },
+            { id: "76", title: "아키맵", description: "국내외 유명 건축물의 위치와 정보를 지도로 확인할 수 있는 서비스입니다", category: "지도", url: "https://archi-map.com" },
+            { id: "77", title: "건축여행", description: "건축물을 중심으로 한 여행 코스와 정보를 제공하는 플랫폼입니다", category: "지도", url: "https://arch-travel.kr" },
+            { id: "78", title: "도시탐험", description: "도시 건축물과 공간을 탐험할 수 있는 가이드를 제공합니다", category: "지도", url: "https://city-explore.net" },
+
+            // 기타 카테고리
+            { id: "43", title: "건축클래스", description: "온라인 건축 교육과 강의를 제공하는 학습 플랫폼입니다", category: "기타", url: "https://arch-class.com" },
+            { id: "44", title: "건축뉴스", description: "국내외 건축 관련 최신 뉴스와 트렌드를 제공하는 뉴스 사이트입니다", category: "기타", url: "https://arch-news.kr" },
+            { id: "45", title: "건축갤러리", description: "우수한 건축 작품과 포트폴리오를 전시하는 온라인 갤러리입니다", category: "기타", url: "https://arch-gallery.net" },
+            { id: "79", title: "건축도서관", description: "건축 관련 도서와 자료를 검색하고 대출할 수 있는 디지털 도서관입니다", category: "기타", url: "https://arch-library.org" }
+        ];
+
+        // 카테고리 설정
+        const categoryConfig = {
+            "디자인": { icon: "🎨", iconClass: "icon-blue" },
+            "공모전": { icon: "🏆", iconClass: "icon-yellow" },
+            "채용정보": { icon: "💼", iconClass: "icon-green" },
+            "회사정보": { icon: "🏢", iconClass: "icon-orange" },
+            "프로그램": { icon: "💻", iconClass: "icon-purple" },
+            "유튜버": { icon: "📺", iconClass: "icon-red" },
+            "커뮤니티": { icon: "💬", iconClass: "icon-indigo" },
+            "지도": { icon: "📍", iconClass: "icon-teal" },
+            "기타": { icon: "📚", iconClass: "icon-gray" }
+        };
+
+        // 전역 변수
+        let favorites = new Set();
+        let showDescriptions = false;
+        let expandedCategories = new Set();
+        let favoritePositions = {};
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFavorites();
+            loadVisitorCount();
+            loadFavoritePositions();
+            renderCategories();
+            updateFavoritesDisplay();
+            
+            // 검색 입력 이벤트
+            document.getElementById('search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+        });
+
+        // 로컬 스토리지 함수들
+        function loadFavorites() {
+            const saved = localStorage.getItem('honeypot-favorites');
+            if (saved) {
+                favorites = new Set(JSON.parse(saved));
+            }
+        }
+
+        function saveFavorites() {
+            localStorage.setItem('honeypot-favorites', JSON.stringify([...favorites]));
+        }
+
+        function loadFavoritePositions() {
+            const saved = localStorage.getItem('honeypot-favorite-positions');
+            if (saved) {
+                favoritePositions = JSON.parse(saved);
+            }
+        }
+
+        function saveFavoritePositions() {
+            localStorage.setItem('honeypot-favorite-positions', JSON.stringify(favoritePositions));
+        }
+
+        function loadVisitorCount() {
+            const today = new Date().toDateString();
+            const savedDate = localStorage.getItem('honeypot-visit-date');
+            
+            if (savedDate !== today) {
+                const randomVisitors = Math.floor(Math.random() * 100) + 50;
+                document.getElementById('visitor-count').textContent = randomVisitors;
+                localStorage.setItem('honeypot-visit-date', today);
+                localStorage.setItem('honeypot-visitors', randomVisitors.toString());
+            } else {
+                const savedVisitors = localStorage.getItem('honeypot-visitors');
+                document.getElementById('visitor-count').textContent = savedVisitors || '73';
+            }
+        }
+
+        // 카테고리 렌더링
+        function renderCategories() {
+            const grid = document.getElementById('categories-grid');
+            const categoryOrder = ["디자인", "공모전", "채용정보", "회사정보", "프로그램", "유튜버", "커뮤니티", "지도", "기타"];
+            
+            // 카테고리별 웹사이트 그룹화
+            const categorizedWebsites = {};
+            websites.forEach(website => {
+                if (!categorizedWebsites[website.category]) {
+                    categorizedWebsites[website.category] = [];
+                }
+                categorizedWebsites[website.category].push(website);
+            });
+
+            categoryOrder.forEach(category => {
+                if (categorizedWebsites[category]) {
+                    const categoryCard = createCategoryCard(category, categorizedWebsites[category]);
+                    grid.appendChild(categoryCard);
+                }
+            });
+        }
+
+        function createCategoryCard(category, websites) {
+            const config = categoryConfig[category];
+            const isExpanded = expandedCategories.has(category);
+            const sitesToShow = isExpanded ? websites : websites.slice(0, 4);
+            const hasMore = websites.length > 4;
+
+            const card = document.createElement('div');
+            card.className = 'category-card';
+
+            card.innerHTML = `
+                <div class="category-header">
+                    <div class="category-title">
+                        <span class="category-icon ${config.iconClass}">${config.icon}</span>
+                        <span class="category-name">${category}</span>
+                    </div>
+                </div>
+                <div class="category-content">
+                    <div class="website-list">
+                        ${sitesToShow.map(website => createWebsiteItem(website)).join('')}
+                        ${hasMore ? `
+                            <button class="more-btn" onclick="toggleCategory('${category}', this)">
+                                ${isExpanded ? '⬆️ 접기' : `⬇️ 더보기 (${websites.length - 4}개 더)`}
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function createWebsiteItem(website) {
+            const isFavorited = favorites.has(website.id);
+            const itemClass = showDescriptions ? 'website-item expanded' : 'website-item collapsed';
+            
+            return `
+                <div class="${itemClass}">
+                    <div class="website-header">
+                        <img class="website-favicon" 
+                             src="https://www.google.com/s2/favicons?domain=${website.url}&sz=16" 
+                             alt=""
+                             onerror="this.src='data:image/svg+xml,<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 16 16\\"><rect width=\\"16\\" height=\\"16\\" fill=\\"%23e5e7eb\\"/><text x=\\"8\\" y=\\"12\\" text-anchor=\\"middle\\" fill=\\"%236b7280\\" font-size=\\"8\\">🌐</text></svg>'">
+                        <div class="website-content">
+                            <a href="${website.url}" target="_blank" class="website-title" ${!showDescriptions ? `title="${website.description}"` : ''}>
+                                ${website.title}
+                            </a>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite('${website.id}', event)">
+                            <svg class="star-icon ${isFavorited ? 'favorited' : 'not-favorited'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <polygon points="12,2 15,8 22,9 17,14 18,21 12,18 6,21 7,14 2,9 9,8"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                    ${showDescriptions ? `<div class="website-description">${website.description}</div>` : ''}
+                </div>
+            `;
+        }
+
+        // 즐겨찾기 토글
+        function toggleFavorite(websiteId, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const isAdding = !favorites.has(websiteId);
+            
+            if (isAdding) {
+                favorites.add(websiteId);
+                // 애니메이션 효과
+                const star = event.target.closest('button').querySelector('svg');
+                if (star) {
+                    const clone = star.cloneNode(true);
+                    clone.style.position = 'fixed';
+                    clone.style.left = star.getBoundingClientRect().left + 'px';
+                    clone.style.top = star.getBoundingClientRect().top + 'px';
+                    clone.style.zIndex = '9999';
+                    clone.style.pointerEvents = 'none';
+                    clone.classList.add('animate-bounce');
+                    document.body.appendChild(clone);
+                    
+                    setTimeout(() => {
+                        clone.remove();
+                    }, 1000);
+                }
+                
+                // 새로운 즐겨찾기의 기본 위치 설정
+                favoritePositions[websiteId] = { 
+                    x: Math.random() * 200, 
+                    y: Math.random() * 100 
+                };
+                saveFavoritePositions();
+            } else {
+                favorites.delete(websiteId);
+            }
+            
+            saveFavorites();
+            updateFavoritesDisplay();
+            renderCategories(); // 별 아이콘 업데이트를 위해 재렌더링
+        }
+
+        // 카테고리 확장/축소
+        function toggleCategory(category, button) {
+            if (expandedCategories.has(category)) {
+                expandedCategories.delete(category);
+            } else {
+                expandedCategories.add(category);
+            }
+            renderCategories();
+        }
+
+        // 설명 표시 토글
+        function toggleDescriptions() {
+            showDescriptions = !showDescriptions;
+            const toggleText = document.getElementById('description-toggle-text');
+            toggleText.textContent = showDescriptions ? '🙈 설명 숨기기' : '👁️ 설명 보기';
+            renderCategories();
+        }
+
+        // 즐겨찾기 표시 업데이트
+        function updateFavoritesDisplay() {
+            const favoritesSection = document.getElementById('favorites-section');
+            const favoritesContainer = document.getElementById('favorites-container');
+            
+            if (favorites.size > 0) {
+                favoritesSection.style.display = 'block';
+                favoritesContainer.innerHTML = '';
+                
+                favorites.forEach(websiteId => {
+                    const website = websites.find(w => w.id === websiteId);
+                    if (website) {
+                        const position = favoritePositions[websiteId] || { x: 0, y: 0 };
+                        const favoriteItem = document.createElement('div');
+                        favoriteItem.className = 'favorite-item';
+                        favoriteItem.style.left = position.x + 'px';
+                        favoriteItem.style.top = position.y + 'px';
+                        favoriteItem.draggable = true;
+                        
+                        favoriteItem.innerHTML = `
+                            <img src="https://www.google.com/s2/favicons?domain=${website.url}&sz=16" 
+                                 alt="" style="width: 16px; height: 16px;"
+                                 onerror="this.src='data:image/svg+xml,<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 16 16\\"><rect width=\\"16\\" height=\\"16\\" fill=\\"%23e5e7eb\\"/><text x=\\"8\\" y=\\"12\\" text-anchor=\\"middle\\" fill=\\"%236b7280\\" font-size=\\"8\\">🌐</text></svg>'">
+                            <a href="${website.url}" target="_blank" style="text-decoration:none; color:#111827; font-size:14px; font-weight:500;">
+                                ${website.title}
+                            </a>
+                            <button onclick="toggleFavorite('${website.id}', event)" style="border:none; background:none; cursor:pointer; padding:2px;">
+                                ⭐
+                            </button>
+                        `;
+                        
+                        // 드래그 이벤트
+                        favoriteItem.addEventListener('dragstart', (e) => {
+                            e.dataTransfer.setData('text/plain', websiteId);
+                        });
+                        
+                        favoriteItem.addEventListener('drag', (e) => {
+                            if (e.clientX > 0 && e.clientY > 0) {
+                                const rect = favoritesContainer.getBoundingClientRect();
+                                const newX = e.clientX - rect.left;
+                                const newY = e.clientY - rect.top;
+                                favoritePositions[websiteId] = { x: newX, y: newY };
+                                favoriteItem.style.left = newX + 'px';
+                                favoriteItem.style.top = newY + 'px';
+                                saveFavoritePositions();
+                            }
+                        });
+                        
+                        favoritesContainer.appendChild(favoriteItem);
+                    }
+                });
+            } else {
+                favoritesSection.style.display = 'none';
+            }
+        }
+
+        // 검색 기능
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query) {
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+            }
+        }
+
+        // 문의하기 모달
+        function openContactModal() {
+            document.getElementById('contact-modal').style.display = 'block';
+        }
+
+        function closeContactModal() {
+            document.getElementById('contact-modal').style.display = 'none';
+        }
+
+        function handleContactSubmit() {
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+            
+            const subject = encodeURIComponent('꿀단지 문의사항');
+            const body = encodeURIComponent(`이름: ${name}\n이메일: ${email}\n\n문의내용:\n${message}`);
+            window.location.href = `mailto:okjsk1@gmail.com?subject=${subject}&body=${body}`;
+            
+            // 폼 초기화
+            document.getElementById('contact-name').value = '';
+            document.getElementById('contact-email').value = '';
+            document.getElementById('contact-message').value = '';
+            closeContactModal();
+        }
+
+        // 시작페이지로 설정
+        function setAsHomepage() {
+            try {
+                if (window.chrome) {
+                    alert('크롬에서는 설정 > 시작 그룹에서 직접 설정해주세요.');
+                } else {
+                    window.home();
+                }
+            } catch (e) {
+                alert('브라우저 설정에서 직접 시작페이지를 설정해주세요.');
+            }
+        }
+
+        // 구글 로그인
+        function handleGoogleLogin() {
+            alert('구글 로그인 기능은 서버 구현이 필요합니다.');
+        }
+
+        // 휴지통 드래그 앤 드롭
+        const trashArea = document.getElementById('trash-area');
+        trashArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            trashArea.classList.add('drag-over');
+        });
+
+        trashArea.addEventListener('dragleave', () => {
+            trashArea.classList.remove('drag-over');
+        });
+
+        trashArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const websiteId = e.dataTransfer.getData('text/plain');
+            favorites.delete(websiteId);
+            saveFavorites();
+            updateFavoritesDisplay();
+            renderCategories();
+            trashArea.classList.remove('drag-over');
+        });
+
+        // 모달 외부 클릭 시 닫기
+        window.onclick = function(event) {
+            const modal = document.getElementById('contact-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
