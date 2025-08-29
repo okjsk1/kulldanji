@@ -116,7 +116,21 @@
         .website-header { display: flex; align-items: center; gap: 0.75rem; width: 100%; }
         .website-favicon { width: 18px; height: 18px; border-radius: 5px; background: #faf6e1; object-fit: cover; flex-shrink: 0; border: 1px solid #ffe69a; margin-top: 4px; }
         .website-content { flex: 1; min-width: 0; }
-        .website-title { font-size: 1.04rem; font-weight: 500; color: #47340a; text-decoration: none; transition: color .18s; display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: calc(100% - 60px); }
+        .website-title {
+  font-size: 1.04rem;
+  font-weight: 500;
+  color: #47340a;
+  text-decoration: none;
+  transition: color .18s;
+  display: -webkit-box;          /* flex 기반 박스 */
+  -webkit-line-clamp: 2;         /* 최대 2줄까지만 표시 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;           /* 줄바꿈 허용 */
+  word-break: keep-all;          /* 단어 단위 줄바꿈 (한국어용) */
+  max-width: 100%;               /* 글자 잘리지 않게 */
+}
+
         .website-title:hover { color: #2563eb; text-decoration: underline; }
         .favorite-btn { margin-left: 0.5rem; background: 0; border: 0; padding: 0.11rem; display: flex; align-items: center; cursor: pointer; }
         .favorite-btn:hover { background: #fef3c7; border-radius: 0.25rem; }
