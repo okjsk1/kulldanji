@@ -466,8 +466,6 @@
                         const position = favoritePositions[websiteId] || { x: 0, y: 0 };
                         const favoriteItem = document.createElement('div');
                         favoriteItem.className = 'favorite-item';
-                        favoriteItem.style.left = position.x + 'px';
-                        favoriteItem.style.top = position.y + 'px';
                         favoriteItem.draggable = true;
 
                         favoriteItem.innerHTML = `
