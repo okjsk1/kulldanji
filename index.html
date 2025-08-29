@@ -63,8 +63,6 @@
         .favorites-section { padding: 1.5rem; background: #fafafa; border-bottom: 1.5px solid #ededed; box-shadow: none; }
         .favorites-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
         .favorites-title { font-size: 20px; font-weight: 700; color: #bfae6b; display: flex; align-items: center; gap: 0.75rem; }
-        .trash-area { padding: 0.75rem; border: 2px dashed #e2e2e2; border-radius: 0.5rem; background: #f6f6f6; transition: all 0.3s; }
-        .trash-area.drag-over { background: #ffe7e7; border-color: #faa; transform: scale(1.1); }
         .favorites-container {
             position: relative;  height: auto; /* 고정된 높이를 제거하여 그리드 내용에 맞게 늘어나게 함 */
   /* ... 다른 속성들 ... */
@@ -189,7 +187,6 @@
     <div class="favorites-section" id="favorites-section" style="display: none;">
         <div class="favorites-header">
             <h2 class="favorites-title">📁 내 즐겨찾기</h2>
-            <div class="trash-area" id="trash-area">🗑️</div>
         </div>
         <div class="favorites-container" id="favorites-container"></div>
     </div>
@@ -536,18 +533,6 @@
             }
         }
 
-        const trashArea = document.getElementById('trash-area');
-        trashArea.addEventListener('dragover', (e) => { e.preventDefault(); trashArea.classList.add('drag-over'); });
-        trashArea.addEventListener('dragleave', () => { trashArea.classList.remove('drag-over'); });
-        trashArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            const websiteId = e.dataTransfer.getData('text/plain');
-            favorites.delete(websiteId);
-            saveFavorites();
-            updateFavoritesDisplay();
-            renderCategories();
-            trashArea.classList.remove('drag-over');
-        });
 
         window.onclick = function(event) {
             const modal = document.getElementById('contact-modal');
