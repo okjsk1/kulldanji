@@ -78,7 +78,7 @@
         .ad-icon { font-size: 24px; margin-bottom: 0.5rem; }
 
        /* 카테고리 그리드 */
-        .categories-grid { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.1rem 1.5rem; }
+        .categories-grid { flex: 1; display: grid; grid-template-columns: repeat(6, 1fr); gap: 2.1rem 1.5rem; }
         @media (max-width: 1200px) { .categories-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 900px) { .categories-grid { grid-template-columns: repeat(2, 1fr); } .main-layout { gap: 1rem; padding: 2rem 0.5rem 0 0.5rem; } }
         @media (max-width: 600px) { .categories-grid { grid-template-columns: 1fr; } .main-layout { flex-direction: column; } .ads-left, .ads-right { display: none; } }
@@ -161,13 +161,13 @@
             <div class="header-center">
                 <div class="logo">🐻</div>
                 <div class="brand">
-                    <h1>꿀단지</h1>
-                    <p>건축인들의 달콤한 정보 저장소</p>
+                    <h1>SFU</h1>
+                    <p>Sites For You</p>
                 </div>
             </div>
-            <div class="header-right">
+            <div class="header-left">
                 <button class="btn-ghost" onclick="openContactModal()">📞 문의하기</button>
-                <button class="btn-ghost" onclick="toggleDescriptions()">👁️ 설명 보기</button>
+                <button class="btn-ghost" onclick="toggleDescriptions()">👁️ 커뮤니티</button>
                 <button class="btn-ghost" onclick="setAsHomepage()">🏠 시작페이지로 설정</button>
                 <button class="btn-ghost">💾 저장하기</button>
             </div>
